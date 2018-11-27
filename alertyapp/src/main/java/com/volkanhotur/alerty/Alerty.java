@@ -86,23 +86,14 @@ public class Alerty {
     @SuppressWarnings("UnusedReturnValue")
     public static class Builder {
 
-        //@BindView(R.id.alerty_header)
         View alertyHeader;
-        //@BindView(R.id.alerty_icon)
         ImageView alertyIcon;
-        //@BindView(R.id.alerty_relative_layout)
         RelativeLayout alertyRelativeLayout;
-        //@BindView(R.id.alerty_title)
         TextView alertyTitle;
-        //@BindView(R.id.alerty_message)
         TextView alertyMessage;
-        //@BindView(R.id.alerty_neutral_button)
         Button alertyNeutralButton;
-        //@BindView(R.id.alerty_negative_button)
         Button alertyNegativeButton;
-        //@BindView(R.id.alerty_positive_button)
         Button alertyPositiveButton;
-        //@BindView(R.id.alerty_card_view)
         CardView alertyCardView;
 
         private String title;
