@@ -8,8 +8,6 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.Objects;
@@ -79,16 +77,12 @@ public class Alerty {
         this.negativetiveListener = builder.negativeListener;
         this.neutralListener = builder.neutralListener;
         this.cancellable = builder.cancellable;
-        this.headerColor = builder.headerColor;
         this.context = builder.context;
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public static class Builder {
 
-        View alertyHeader;
-        ImageView alertyIcon;
-        RelativeLayout alertyRelativeLayout;
         TextView alertyTitle;
         TextView alertyMessage;
         Button alertyNeutralButton;
@@ -119,7 +113,6 @@ public class Alerty {
         private AlertyListener negativeListener;
         private AlertyListener neutralListener;
         private boolean cancellable = true;
-        private int headerColor;
         private Context context;
 
         private Dialog dialog;
@@ -203,11 +196,6 @@ public class Alerty {
             return this;
         }
 
-        public Builder setHeaderColor(int headerColor) {
-            this.headerColor = headerColor;
-            return this;
-        }
-
         public Builder setButtonRadius(float buttonRadius) {
             this.buttonRadius = buttonRadius;
             return this;
@@ -260,9 +248,6 @@ public class Alerty {
             dialog.setCanceledOnTouchOutside(cancellable);
             dialog.setContentView(R.layout.alerty_standart_dialog);
 
-            alertyHeader = dialog.findViewById(R.id.alerty_header);
-            alertyIcon = dialog.findViewById(R.id.alerty_icon);
-            alertyRelativeLayout = dialog.findViewById(R.id.alerty_relative_layout);
             alertyTitle = dialog.findViewById(R.id.alerty_title);
             alertyMessage = dialog.findViewById(R.id.alerty_message);
             alertyPositiveButton = dialog.findViewById(R.id.alerty_positive_button);
@@ -308,10 +293,6 @@ public class Alerty {
                         alertyNeutralButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
                         break;
                 }
-            }
-
-            if(headerColor != 0){
-                alertyHeader.setBackgroundColor(headerColor);
             }
 
             if(titleTextColor != 0){
