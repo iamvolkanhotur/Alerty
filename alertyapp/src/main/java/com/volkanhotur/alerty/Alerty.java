@@ -50,7 +50,6 @@ public class Alerty {
     private AlertyListener negativetiveListener;
     private AlertyListener neutralListener;
     private boolean cancellable;
-    private int headerColor;
     private Context context;
 
     public Alerty(Builder builder) {
@@ -329,7 +328,7 @@ public class Alerty {
                 alertyNegativeButton.setVisibility(View.GONE);
             }
 
-            if (negativeButtonText != null) {
+            if (neutralButtonText != null) {
                 alertyNeutralButton.setText(neutralButtonText);
                 alertyNeutralButton.setVisibility(View.VISIBLE);
             } else {
