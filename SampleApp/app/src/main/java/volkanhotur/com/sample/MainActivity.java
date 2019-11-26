@@ -3,6 +3,8 @@ package volkanhotur.com.sample;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Toast;
 
 import com.volkanhotur.alerty.Alerty;
 import com.volkanhotur.alerty.AlertyListener;
@@ -18,21 +20,19 @@ public class MainActivity extends AppCompatActivity {
                 .setTitle("Test Title")
                 .setMessage("Test Message Dialog")
                 .setCancellable(false)
-                .setHeaderColor(0XFF828282)
-                .setPositiveButtonText("OKAY")
+                .setPositiveButtonText("DONE")
                 .setNegativeButtonText("CANCEL")
-                .setNeutralButtonText("LATER")
-                .setPositiveButtonColor(0XFF828282)
+                .setHeaderImage(R.drawable.ic_message_red)
+                .setPositiveButtonColor(0XFF0EC432)
                 .setNegativeButtonColor(0XFF828282)
-                .setNeutralButtonColor(0XFF828282)
-                .setButtonRadius(100f)
-                .setDialogRadius(25f)
-                .setTextAppearaence(Alerty.MEDIUM_TEXT)
+                .setButtonRadius(16f)
+                .setDialogRadius(16f)
+                .setTextAppearance(Alerty.MEDIUM_TEXT)
                 .setTitleTextColor(0xFF000000)
                 .setPositiveListener(new AlertyListener() {
                     @Override
                     public void onDialogClick(Dialog dialog) {
-                        dialog.dismiss();
+                        Toast.makeText(MainActivity.this, "DONE!", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .build();
