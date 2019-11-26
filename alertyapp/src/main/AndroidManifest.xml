@@ -11,5 +11,4 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
     </application>
-
 </manifest>

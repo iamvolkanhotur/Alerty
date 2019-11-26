@@ -4,10 +4,15 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.CardView;
+import android.transition.Explode;
+import android.transition.TransitionManager;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Objects;
@@ -32,6 +37,7 @@ public class Alerty {
     private String positiveButtonText;
     private String negativeButtonText;
     private String neutralButtonText;
+    private int headerImage = 0;
     private int titleTextColor;
     private int messageTextColor;
     private String textAppearaence;
@@ -43,9 +49,6 @@ public class Alerty {
     private int neutralButtonTextColor;
     private float buttonRadius;
     private float dialogRadius;
-    private int positiveButtonVisibility;
-    private int negativeButtonVisibility;
-    private int neutralButtonVisibility;
     private AlertyListener positiveListener;
     private AlertyListener negativetiveListener;
     private AlertyListener neutralListener;
@@ -58,6 +61,7 @@ public class Alerty {
         this.positiveButtonText = builder.positiveButtonText;
         this.negativeButtonText = builder.negativeButtonText;
         this.neutralButtonText = builder.neutralButtonText;
+        this.headerImage = builder.headerImage;
         this.titleTextColor = builder.titleTextColor;
         this.messageTextColor = builder.messageTextColor;
         this.textAppearaence = builder.textAppearance;
@@ -69,9 +73,6 @@ public class Alerty {
         this.neutralButtonTextColor = builder.neutralButtonTextColor;
         this.buttonRadius = builder.buttonRadius;
         this.dialogRadius = builder.dialogRadius;
-        this.positiveButtonVisibility = builder.positiveButtonVisibility;
-        this.negativeButtonVisibility = builder.negativeButtonVisibility;
-        this.neutralButtonVisibility = builder.neutralButtonVisibility;
         this.positiveListener = builder.positiveListener;
         this.negativetiveListener = builder.negativeListener;
         this.neutralListener = builder.neutralListener;
@@ -87,6 +88,7 @@ public class Alerty {
         Button alertyNeutralButton;
         Button alertyNegativeButton;
         Button alertyPositiveButton;
+        ImageView alertyHeader;
         CardView alertyCardView;
 
         private String title;
@@ -94,6 +96,7 @@ public class Alerty {
         private String positiveButtonText;
         private String negativeButtonText;
         private String neutralButtonText;
+        private int headerImage;
         private int titleTextColor;
         private int messageTextColor;
         private String textAppearance;
@@ -105,9 +108,6 @@ public class Alerty {
         private int neutralButtonTextColor;
         private float buttonRadius;
         private float dialogRadius;
-        private int positiveButtonVisibility = View.VISIBLE;
-        private int negativeButtonVisibility = View.VISIBLE;
-        private int neutralButtonVisibility = View.VISIBLE;
         private AlertyListener positiveListener;
         private AlertyListener negativeListener;
         private AlertyListener neutralListener;
@@ -160,18 +160,8 @@ public class Alerty {
             return this;
         }
 
-        public Builder setPositiveButtonVisibility(int positiveButtonVisibility) {
-            this.positiveButtonVisibility = positiveButtonVisibility;
-            return this;
-        }
-
-        public Builder setNegativeButtonVisibility(int negativeButtonVisibility) {
-            this.negativeButtonVisibility = negativeButtonVisibility;
-            return this;
-        }
-
-        public Builder setNeutralButtonVisibility(int neutralButtonVisibility) {
-            this.neutralButtonVisibility = neutralButtonVisibility;
+        public Builder setHeaderImage(int headerImage) {
+            this.headerImage = headerImage;
             return this;
         }
 
@@ -215,7 +205,7 @@ public class Alerty {
             return this;
         }
 
-        public Builder setTextAppearaence(String textAppearance) {
+        public Builder setTextAppearance(String textAppearance) {
             this.textAppearance = textAppearance;
             return this;
         }
@@ -249,11 +239,11 @@ public class Alerty {
 
             alertyTitle = dialog.findViewById(R.id.alerty_title);
             alertyMessage = dialog.findViewById(R.id.alerty_message);
+            alertyHeader = dialog.findViewById(R.id.alerty_header);
             alertyPositiveButton = dialog.findViewById(R.id.alerty_positive_button);
             alertyNegativeButton = dialog.findViewById(R.id.alerty_negative_button);
             alertyNeutralButton = dialog.findViewById(R.id.alerty_neutral_button);
             alertyCardView = dialog.findViewById(R.id.alerty_card_view);
-
 
             GradientDrawable positiveBG = (GradientDrawable) alertyPositiveButton.getBackground();
             GradientDrawable negativeBG = (GradientDrawable) alertyNegativeButton.getBackground();
@@ -262,9 +252,13 @@ public class Alerty {
             alertyTitle.setText(title);
             alertyMessage.setText(message);
 
-            alertyPositiveButton.setVisibility(positiveButtonVisibility);
-            alertyNegativeButton.setVisibility(negativeButtonVisibility);
-            alertyNeutralButton.setVisibility(neutralButtonVisibility);
+            alertyPositiveButton.setVisibility(positiveButtonText != null ? View.VISIBLE : View.GONE);
+            alertyNegativeButton.setVisibility(negativeButtonText != null ? View.VISIBLE : View.GONE);
+            alertyNeutralButton.setVisibility(neutralButtonText != null ? View.VISIBLE : View.GONE);
+
+            alertyPositiveButton.setText(positiveButtonText);
+            alertyNegativeButton.setText(negativeButtonText);
+            alertyNeutralButton.setText(neutralButtonText);
 
             if(textAppearance != null){
                 switch (textAppearance){
@@ -276,20 +270,21 @@ public class Alerty {
                         alertyNeutralButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
                         break;
 
-                    case MEDIUM_TEXT:
-                        alertyTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-                        alertyMessage.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
-                        alertyPositiveButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
-                        alertyNegativeButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
-                        alertyNeutralButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
-                        break;
-
                     case LARGE_TEXT:
                         alertyTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
                         alertyMessage.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
                         alertyPositiveButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
                         alertyNegativeButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
                         alertyNeutralButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+                        break;
+
+                    case MEDIUM_TEXT:
+                    default:
+                        alertyTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+                        alertyMessage.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+                        alertyPositiveButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+                        alertyNegativeButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+                        alertyNeutralButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
                         break;
                 }
             }
@@ -302,6 +297,13 @@ public class Alerty {
                 alertyMessage.setTextColor(messageTextColor);
             }
 
+            if(headerImage != 0){
+                alertyHeader.setImageResource(headerImage);
+                alertyHeader.setVisibility(View.VISIBLE);
+            }else {
+                alertyHeader.setVisibility(View.GONE);
+            }
+
             if(positiveButtonTextColor != 0){
                 alertyPositiveButton.setTextColor(positiveButtonTextColor);
             }
@@ -312,27 +314,6 @@ public class Alerty {
 
             if(neutralButtonTextColor != 0){
                 alertyNeutralButton.setTextColor(neutralButtonTextColor);
-            }
-
-            if (positiveButtonText != null) {
-                alertyPositiveButton.setText(positiveButtonText);
-                alertyPositiveButton.setVisibility(View.VISIBLE);
-            } else {
-                alertyPositiveButton.setVisibility(View.GONE);
-            }
-
-            if (negativeButtonText != null) {
-                alertyNegativeButton.setText(negativeButtonText);
-                alertyNegativeButton.setVisibility(View.VISIBLE);
-            } else {
-                alertyNegativeButton.setVisibility(View.GONE);
-            }
-
-            if (neutralButtonText != null) {
-                alertyNeutralButton.setText(neutralButtonText);
-                alertyNeutralButton.setVisibility(View.VISIBLE);
-            } else {
-                alertyNeutralButton.setVisibility(View.GONE);
             }
 
             if (positiveButtonColor != 0) {
@@ -360,8 +341,15 @@ public class Alerty {
             if (positiveListener != null) {
                 alertyPositiveButton.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View view) {
+                    public void onClick(View v) {
                         positiveListener.onDialogClick(dialog);
+                    }
+                });
+            }else {
+                alertyPositiveButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
                     }
                 });
             }
@@ -369,8 +357,15 @@ public class Alerty {
             if (negativeListener != null) {
                 alertyNegativeButton.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View view) {
+                    public void onClick(View v) {
                         negativeListener.onDialogClick(dialog);
+                    }
+                });
+            }else {
+                alertyNegativeButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
                     }
                 });
             }
@@ -378,8 +373,15 @@ public class Alerty {
             if (neutralListener != null) {
                 alertyNeutralButton.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View view) {
+                    public void onClick(View v) {
                         neutralListener.onDialogClick(dialog);
+                    }
+                });
+            }else {
+                alertyNeutralButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
                     }
                 });
             }

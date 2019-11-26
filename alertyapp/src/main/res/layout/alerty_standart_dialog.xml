@@ -23,6 +23,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/alerty_header"
+                android:src="@drawable/ic_info_gray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="16dp"/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -30,14 +39,15 @@
                 android:textSize="16sp"
                 android:paddingRight="16dp"
                 android:paddingLeft="16dp"
+                android:layout_marginBottom="8dp"
                 android:gravity="center"
                 android:id="@+id/alerty_title"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:layout_below="@id/alerty_header"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
-                android:layout_marginTop="16dp"
                 android:paddingRight="16dp"
                 android:paddingLeft="16dp"
                 android:gravity="center"
@@ -50,31 +60,38 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/alerty_message"
                 android:orientation="horizontal"
-                android:layout_marginTop="32dp"
-                android:weightSum="3">
+                android:layout_marginTop="24dp"
+                android:weightSum="3"
+                tools:ignore="ButtonStyle">
                 <Button
                     android:textSize="14sp"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:minHeight="40dp"
                     android:layout_weight="1"
                     android:id="@+id/alerty_neutral_button"
                     android:background="@drawable/radius_background"
                     android:textColor="#FFFFFF"
-                    android:text="REMIND LATER"
-                    android:padding="4dp"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="4dp"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
                     android:layout_marginStart="0dp"
                     android:layout_marginEnd="4dp"
-                    android:maxLines="2"/>
+                    android:maxLines="2" />
                 <Button
                     android:textSize="14sp"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:minHeight="40dp"
                     android:layout_weight="1"
                     android:id="@+id/alerty_negative_button"
                     android:background="@drawable/radius_background"
                     android:textColor="#FFFFFF"
-                    android:text="CANCEL"
-                    android:padding="4dp"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="4dp"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="4dp"
                     android:maxLines="2"/>
@@ -82,12 +99,15 @@
                     android:textSize="14sp"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:minHeight="40dp"
                     android:layout_weight="1"
                     android:id="@+id/alerty_positive_button"
                     android:background="@drawable/radius_background"
                     android:textColor="#FFFFFF"
-                    android:text="OK"
-                    android:padding="4dp"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="4dp"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="0dp"
                     android:maxLines="2"/>
