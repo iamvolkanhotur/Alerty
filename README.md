@@ -10,6 +10,7 @@ The latest release is available with 1.0.0.
     
 This repo has a sample project. And you can sample codes below:
 
+```java
 new Alerty.Builder(this)
     .setTitle("Test Title")
     .setMessage("Test Message Dialog")
@@ -30,3 +31,4 @@ new Alerty.Builder(this)
         }
      })
      .build();
+```
